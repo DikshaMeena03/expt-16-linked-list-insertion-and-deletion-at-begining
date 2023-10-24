@@ -1,0 +1,77 @@
+#include <iostream>
+using namespace std;
+//singly linked list
+
+class node{
+public:
+    int data;
+    node* next;
+
+   node(int data){
+      this ->data = data;
+     this ->next = NULL;
+    }
+
+    ~node(){
+        int value = this->data;
+        if(this->next!= NULL){
+            delete next;
+            this->next =NULL;
+        }
+    }
+};
+
+void insertathead(node* &head, int d){
+  node* temp = new node(d);
+  temp ->next = head;
+  head = temp;
+}
+
+/*void insertattail(node* &tail,int d){
+   node* temp = new node(d);
+   tail->next = temp;
+   tail = temp;
+}*/
+
+void print(node* &head){
+    node* temp = head;
+    while(temp != NULL){
+        cout<<temp->data<<" "<<endl;
+        temp =temp->next;
+    }
+}
+void deletenode(int position, node* &head){
+
+    if(position==1){
+        node* temp = head;
+        head = head->next;
+        temp->next =NULL;
+        delete temp;
+    }
+   else{
+            node* curr = head;
+            node* prev = NULL;
+       int cnt =1;
+       while(cnt<=position){
+         prev = curr;
+         curr= curr->next;
+         cnt++;
+       }
+       prev->next=curr->next;
+       curr->next=NULL;
+       delete curr;
+    }
+}
+int main(){
+   node*node1 = new node(5);
+   cout<<node1->data<<endl;
+   cout<<node1->next<<endl;
+node*head =node1;
+insertathead(head, 12);
+insertathead(head, 13);
+insertathead(head, 14);
+print(head);
+deletenode(1,head);
+print(head);
+   return 0;
+}
